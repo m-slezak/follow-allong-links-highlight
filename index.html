@@ -32,11 +32,20 @@
     document.body.append(highlight)
 
  function highLightLink () {
-        const coords = this.getBoundingClientRect();
-        console.log(coords)
-        highlight.style.width = `${coords.width}px`;
-        highlight.style.height = `${coords.height}px`;
-        highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`
+        const linkCoords = this.getBoundingClientRect();
+        console.log(linkCoords)
+        const cords = {
+            width: linkCoords.width ,
+            height: linkCoords.height ,
+            top: linkCoords.top + window.scrollY ,
+            left: linkCoords.left + window.scrollX ,
+        }
+
+        highlight.style.width = `${cords.width}px`;
+        highlight.style.height = `${cords.height}px`;
+        highlight.style.top = `${cords.top}`;
+        highlight.style.left = `${cords.left}`
+        highlight.style.transform = `translate(${cords.left}px, ${cords.top}px)`
     }
 
     triggers.forEach(a => a.addEventListener('mouseenter', highLightLink))
